@@ -1,0 +1,47 @@
+﻿@model IEnumerable<SampleApp_202101.Models.TodoModel>
+@{
+    ViewBag.Title = "TODO]♪";
+}
+
+<h2>TODO♪</h2>
+
+<p>
+    @*ボタン（セレクタ―属性）もできる。https://qiita.com/echoprogress/items/17e85ad489bddf07b540*@
+    <input type="button" class="btn btn-primary" value="Create" onclick="location.href='@Url.Action("CreateTodo", "Menu")'" />
+    @*@Html.ActionLink("Create New", "Create")*@
+    @*@Html.ActionLink("正しい例：Go to ~/CreateTodo", "CreateTodo", "Menu")*@
+    <input type="button" class="btn btn-primary" value="Timer" onclick="location.href='@Url.Action("Index", "Timer")'" />
+    <input type="button" class="btn btn-primary" value="Category" onclick="location.href='@Url.Action("Index", "Category", new { id = "1" })'" />
+</p>
+
+@using (Html.BeginForm("Index", "TodoEdit"))
+{
+    @Html.AntiForgeryToken();
+
+    <table class="table">
+        <tr>
+            <th></th>
+            <th>TODO優先度★</th>
+            <th>カテゴリー</th>
+            <th>TODO</th>
+            <th>完成度</th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td id="checkbox"></td>
+                <td id="priority">@item.Priority</td>
+                <td>@item.TodoCategoryContents</td>
+                <td>@item.TodoItem</td>
+                <td></td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.TodoId }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.TodoId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.TodoId })
+                </td>
+            </tr>
+        }
+    </table>
+}

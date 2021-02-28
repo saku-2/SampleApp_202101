@@ -1,0 +1,89 @@
+﻿@model SampleApp_202101.Models.SampleModel
+
+@{
+    ViewBag.Title = "Sample";
+}
+@Scripts.Render("~/bundles/Common")
+
+<h2>Sample</h2>
+
+@using (Html.BeginForm("Radio", "Sample"))
+{
+    // ラジオボタン
+    <div class="col-md-10">
+        <div class="radio-inline">
+            @Html.RadioButtonFor(model => model.RadioName, "A", new { tabindex = 1 })A
+        </div>
+        <div class="radio-inline">
+            @Html.RadioButtonFor(model => model.RadioName, "B", new { tabindex = 2 })B
+        </div>
+        @Html.ValidationMessageFor(model => model.RadioName, "*", new { @class = "text-danger" })
+    </div>
+
+    <div>
+        <input type="submit" class="btn btn-primary" value="Radio" onclick="location.href='@Url.Action("Radio", "Sample", new { id = "1" })'" />
+        @*<input type="submit" name="Search" value="Radio">*@
+        @Html.HiddenFor(model => model.RadioName)
+    </div>
+}
+
+
+@using (Html.BeginForm("List", "Sample"))
+{
+    //SelectChengedがOK
+    @*@Html.DropDownListFor(model => model.TodoCategoryContentsList, Model.TodoCategoryContentsList,
+        htmlAttributes: new
+        {
+            @class = "form-control",
+            //onchange = @"form-control.submit();",
+            onchange = @"SelectChenged();",
+            //id = Model.TodoCategoryId,
+            //name = Model.TodoCategoryContents
+        })*@
+
+    //https://code.jamjar.jp/programming/c-sharp/%E3%80%90c%E3%80%91asp-net-mvc%E3%81%AE%E3%83%8F%E3%83%9E%E3%82%8A%E3%83%9D%E3%82%A4%E3%83%B3%E3%83%88/
+    @*@Html.DropDownListFor(
+        model => model.TodoCategoryId,
+        Model.TodoCategoryContentsList
+        .Select(x => new SelectListItem()
+        {
+            Value = x.Value,
+            Text = x.Text,
+            Selected = x.Value == Model.TodoCategoryId.ToString()
+        }),
+        "カテゴリーを選択してください",
+        new { @class = "title_list" }
+        )*@
+
+    @*@Html.ListBoxFor(mdl => mdl.TodoCategoryContentsList, Model.TodoCategoryContentsList)*@
+    @*@Html.HiddenFor(model => model.TodoCategoryContentsList.ToList()[Model.TodoCategoryId].Value)*@
+
+    @*@Html.ListBoxFor(model => model.TodoCategoryContentsList, ViewBag.TodoCategoryContentsList as SelectList)*@
+
+    @Html.ListBoxFor(
+        model => model.TodoCategoryContentsList,
+        Model.TodoCategoryContentsList
+        .Select(x => new SelectListItem()
+        {
+            Value = x.Value,
+            Text = x.Text,
+            //Selected = true
+            //Selected = x.Value == Model.TodoCategoryContentsList.ToList()[Model.TodoCategoryId].Value
+        }),
+        new { Value = Model.TodoCategoryId, Name = nameof(Model.TodoCategoryContents) }
+        )
+
+    // Value　OK
+    for (int i = 0; i < Model.TodoCategoryContentsList.Count(); i++)
+        {
+        @Html.HiddenFor(model => model.TodoCategoryContentsList.ToList()[i].Value)
+        };
+
+    <div>
+        <input type="submit" class="btn btn-primary" value="DropDownList" onclick="location.href='@Url.Action("Radio", "Sample", new { id = "1" })'" />
+    </div>
+}
+
+
+
+

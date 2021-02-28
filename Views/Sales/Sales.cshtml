@@ -1,0 +1,13 @@
+﻿
+@{
+    ViewBag.Title = "Sales";
+}
+
+<h2>Sales</h2>
+
+@using (Html.BeginForm("DayControl", "Sales"))
+{
+    <p>
+        <input type="submit" class="btn btn-primary" value="バックアップする" onclick="location.href='@Url.Action("CsvBackUpStart", "CsvBackUp")'" />
+    </p>
+}

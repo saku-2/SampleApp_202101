@@ -1,0 +1,36 @@
+﻿
+@{
+    ViewBag.Title = "CsvBackUpIndex";
+}
+
+<h2>CsvBackUpIndex</h2>
+
+@using (Html.BeginForm("CsvBackUpStart", "CsvBackUp"))
+{
+<p>
+    <input type="submit" class="btn btn-primary" value="バックアップする" onclick="location.href='@Url.Action("CsvBackUpStart", "CsvBackUp")'" />
+</p>
+}
+
+@*<button type="button" class="form-control" title="employs" value="@model.myId" onclick="DoComfirm()" return false>comfirm</button>
+@section scripts{
+<script type="text/javascript">
+  function DoComfirm()
+    {
+          if (confirm('Are you sure?')) {
+                window.location.href = "@Url.Action("CsvBackUpStart", "CsvBackUp", new { @id = 1})";
+
+            }
+    }
+</script>
+
+}*@
+
+
+
+
+@*<button type="button"
+        onclick="setRegularWorkTime('@Html.IdFor(model => model.Kintais[i].Open)', '@Html.IdFor(model => model.Kintais[i].Close)')"
+        class="btn btn-primary">
+    定時
+</button>*@

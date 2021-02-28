@@ -1,0 +1,24 @@
+﻿
+@{
+    ViewBag.Title = "ストップウォッチ";
+}
+
+<h2>ストップウォッチ</h2>
+
+@using (Html.BeginForm("StartTimer", "Timer", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @*<input type="submit" value="リストつくろう♪" class="btn btn-primary" />*@
+
+    <input type="submit" class="btn btn-primary" value="Start" onclick="location.href='@Url.Action("StartTimer", "Timer")'" />
+
+}
+@using (Html.BeginForm("StopTimer", "Timer", FormMethod.Post))
+{
+    <input type="submit" class="btn btn-primary" value="Stop" onclick="location.href='@Url.Action("StopTimer", "Timer")'" />
+
+}
+
+
+
+

@@ -1,0 +1,46 @@
+﻿@model SampleApp_202101.Models.Sample2Model
+
+<h3>音声合成サンプル</h3>
+<div>
+    話す内容<br />
+    @Html.TextArea("content")<br />
+
+    言語<br />
+    @Html.DropDownListFor(m => m.Langs, Model.Langs, new { @Id = "lang", @Name = "lang" })<br />
+
+    話す早さ<br />
+    <input type="number" id="rate"   name="rate"   value="@Model.Rate"   min="@Model.MinRate"   max="@Model.MaxRate" /><br />
+
+    声の高さ<br />
+    <input type="number" id="pitch"  name="pitch"  value="@Model.Pitch"  min="@Model.MinPitch"  max="@Model.MaxPitch" /><br />
+
+    声の大きさ<br />
+    <input type="number" id="volume" name="volume" value="@Model.Volume" min="@Model.MinVolume" max="@Model.MaxVolume" /><br />
+
+    <button id="speakButton">話す</button>
+</div>
+
+
+<script>
+    const content = document.querySelector("#content")
+    const lang = document.querySelector("#lang")
+    const rate = document.querySelector("#rate")
+    const pitch = document.querySelector("#pitch")
+    const volume = document.querySelector("#volume")
+    const speakButton = document.querySelector("#speakButton")
+
+    speakButton.addEventListener("click", () => {
+        const uttr = new SpeechSynthesisUtterance()
+
+        // 読み上げ設定
+        uttr.text = content.value
+        uttr.lang = lang.value
+        uttr.rate = rate.value
+        uttr.pitch = pitch.value
+        uttr.volume = volume.value
+
+
+        // テキスト読み上げ
+        speechSynthesis.speak(uttr)
+    })
+</script>
